@@ -35,7 +35,7 @@ def play_sound():
         # Example: Assuming you have an MP3 file named 'alarm.mp3'
         # in the same directory as your Python_Apps/Timer directory, or
         # anywhere else. Make sure the path is correct.
-        mp3_file_path = "/home/user/Python_Apps/Timer/timer_end.mp3"  # <--- **CHANGE THIS TO YOUR REAL MP3 FILE PATH**
+        mp3_file_path = "/home/user/Python_Apps/Timer/timer_end.mp3"  #! <--- **CHANGE THIS TO YOUR REAL MP3 FILE PATH**
 
         pyme.mixer.music.load(mp3_file_path)
         pyme.mixer.music.set_volume(1.0)
@@ -46,7 +46,7 @@ def play_sound():
             # 5 FPS is enough for audio playback without consuming much CPU.
             pyme.time.Clock().tick(5)
 
-        print("Sound playback finished.")
+        print("\nSound playback finished.")
 
     except pyme.error as error:
         print(f"Error playing sound: {error}")
