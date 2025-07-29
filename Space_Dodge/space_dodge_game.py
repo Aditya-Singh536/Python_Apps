@@ -91,7 +91,7 @@ def main():
             lost_text = font.render("You, Lost!", 1, "white")
             win.blit(
                 lost_text,
-                (
+               (
                     width / 2 - lost_text.get_width() / 2,
                     height / 2 - lost_text.get_height() / 2,
                 ),
