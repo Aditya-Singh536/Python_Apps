@@ -1,4 +1,4 @@
-# Adi-Python Repository
+# Python_Apps Repository
 
 Welcome to my Python repository! This repository contains a collection of Python projects that I've worked on to improve my programming skills.
 
