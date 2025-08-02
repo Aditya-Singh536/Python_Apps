@@ -2,7 +2,22 @@ import pygame
 import time
 import random
 
+pygame.init()
+pygame.mixer.init()
 pygame.font.init()
+
+
+def play_music():
+    music = "bg_music.mp3"
+    pygame.mixer.music.load(music)
+    pygame.mixer.music.play(-1)
+
+
+def play_music_lost():
+    music = "lose.mp3"
+    pygame.mixer.music.load(music)
+    pygame.mixer.music.play(-1)
+
 
 width, height = 1366, 736  #! Set this according to your display size.
 
@@ -13,12 +28,11 @@ bg = pygame.transform.scale(pygame.image.load("bg.jpeg"), (width, height))
 
 player_width = 40
 player_height = 60
-
-player_vel = 10
+player_vel = 12
 
 star_width = 10
 star_height = 20
-star_vel = 7
+star_vel = 9
 
 font = pygame.font.SysFont("Comic Sans MS", 30)
 
@@ -38,6 +52,8 @@ def draw(player, elapsed_time, stars):
 
 
 def main():
+    play_music()
+
     run = True
 
     player = pygame.Rect(200, height - player_height, player_width, player_height)
@@ -53,11 +69,13 @@ def main():
     hit = False
 
     while run:
+
         star_count += clock.tick(60)
         elapsed_time = time.time() - star_time
 
         if star_count > star_add_increment:
             for i in range(3):
+                i = i
                 star_x = random.randint(0, width - star_width)
                 star = pygame.Rect(star_x, -star_height, star_width, star_height)
                 stars.append(star)
@@ -88,17 +106,19 @@ def main():
                 break
 
         if hit:
-            lost_text = font.render("You, Lost!", 1, "white")
+            pygame.mixer.music.stop()
+            play_music_lost()
+            lost_text = font.render("You, Lose!", 1, "white")
             win.blit(
                 lost_text,
-               (
+                (
                     width / 2 - lost_text.get_width() / 2,
                     height / 2 - lost_text.get_height() / 2,
                 ),
             )
             pygame.display.update()
             pygame.time.delay(4000)
-            break
+            break  # Exit the game loop immediately after showing the message
 
         draw(player, elapsed_time, stars)
 
