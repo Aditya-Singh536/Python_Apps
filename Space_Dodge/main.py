@@ -43,7 +43,7 @@ def draw(player, elapsed_time, stars):
     time_text = font.render(f"Time: {round(elapsed_time)}s", 1, "white")
     win.blit(time_text, (10, 10))
 
-    pygame.draw.rect(win, "purple", player, 12)
+    pygame.draw.rect(win, "purple", player)
 
     for star in stars:
         pygame.draw.rect(win, "white", star)
