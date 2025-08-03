@@ -19,7 +19,7 @@ def play_music_lost():
     pygame.mixer.music.play(-1)
 
 
-width, height = 1366, 736  #! Set this according to your display size.
+width, height = 1366, 736  # ! Set this according to your display size.
 
 win = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Space Dodge")
@@ -43,10 +43,10 @@ def draw(player, elapsed_time, stars):
     time_text = font.render(f"Time: {round(elapsed_time)}s", 1, "white")
     win.blit(time_text, (10, 10))
 
-    pygame.draw.rect(win, "aqua", player)
+    pygame.draw.rect(win, "purple", player, 12)
 
     for star in stars:
-        pygame.draw.rect(win, "red", star)
+        pygame.draw.rect(win, "white", star)
 
     pygame.display.update()
 
@@ -69,7 +69,6 @@ def main():
     hit = False
 
     while run:
-
         star_count += clock.tick(60)
         elapsed_time = time.time() - star_time
 
@@ -117,7 +116,7 @@ def main():
                 ),
             )
             pygame.display.update()
-            pygame.time.delay(4000)
+            pygame.time.delay(5600)
             break  # Exit the game loop immediately after showing the message
 
         draw(player, elapsed_time, stars)
