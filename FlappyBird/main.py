@@ -1,6 +1,16 @@
 import pygame
+import random
 
 pygame.init()
+pygame.font.init()
+pygame.mixer.init()
+
+
+def play_music():
+    music = "bg_music.mp3"
+    pygame.mixer.music.load(music)
+    pygame.mixer.music.play(-1)
+
 
 WIDTH = 900
 HEIGHT = 500
@@ -8,34 +18,156 @@ fps = 60
 black = (0, 0, 0)
 white = (255, 255, 255)
 gray = (128, 128, 128)
+gold = (255, 215, 0)
+red = (255, 0, 0)
+yellow = (255, 255, 0)
+font = pygame.font.SysFont("Comic Sans MS", 20)
 
 win = pygame.display.set_mode([WIDTH, HEIGHT])
 timer = pygame.time.Clock()
-
+pygame.display.set_caption("FlappyBird")
 
 # variable library
 player_x = 225
 player_y = 225
+y_change = 0
+jump_height = 12
+gravity = 0.9
+obstacles = [400, 700, 1000, 1300, 1600]
+generate_places = True
+y_positions = []
+speed = 3
+game_over = False
+score = 0
+high_score = 0
+stars = []
 
 
-def draw_player(x_pos, y_pos):
+def draw_player(x_pos, y_pos, y_change):
     mouth = pygame.draw.circle(win, gray, [x_pos + 25, y_pos + 15], 12)
-    player = pygame.draw.rect(win, white, [x_pos, y_pos, 30, 30], 0, 12)
+    player = pygame.draw.rect(win, white, [x_pos, y_pos, 30, 30], 0, 10)
     eye = pygame.draw.circle(win, black, [x_pos + 24, y_pos + 12], 5)
-    jetpack = pygame.draw.rect(win, white, [x_pos - 20, y_pos, 18, 28], 3, 2)
-    return mouth, player, eye, jetpack
+    jetpack = pygame.draw.rect(win, gold, [x_pos - 20, y_pos, 18, 28], 3, 2)
 
+    if y_change < 0:
+        flame_red1 = pygame.draw.rect(win, red, [x_pos - 20, y_pos + 29, 7, 15], 0, 2)
+        flame_yellow1 = pygame.draw.rect(
+            win, yellow, [x_pos - 18, y_pos + 30, 3, 12], 0, 2
+        )
+        flame_red2 = pygame.draw.rect(win, red, [x_pos - 10, y_pos + 29, 7, 15], 0, 2)
+        flame_yellow2 = pygame.draw.rect(
+            win, yellow, [x_pos - 8, y_pos + 30, 3, 12], 0, 2
+        )
+
+    return player
+
+
+def draw_obstacles(obst, y_pos, char):
+    global game_over
+
+    for i in range(len(obst)):
+        y_coord = y_pos[i]
+        top_rect = pygame.draw.rect(win, gray, [obst[i], 0, 30, y_coord])
+        top_rect_top = pygame.draw.rect(
+            win, gray, [obst[i] - 3, y_coord - 20, 36, 20], 0, 5
+        )
+        bottom_rect = pygame.draw.rect(
+            win, gray, [obst[i], y_coord + 200, 30, HEIGHT - (y_coord + 70)]
+        )
+        bottom_rect_top = pygame.draw.rect(
+            win, gray, [obst[i] - 3, y_coord + 200, 36, 20], 0, 5
+        )
+        if top_rect.colliderect(char) or bottom_rect.colliderect(char):
+            game_over = True
+
+
+def draw_stars(obj):
+    global total
+
+    for i in range(total - 1):
+        pygame.draw.rect(win, white, [obj[i][0], obj[i][1], 3, 3], 0, 2)
+        obj[i][0] -= 0.5
+        if obj[i][0] < -3:
+            obj[i][0] = WIDTH - 3
+            obj[i][1] = random.randint(0, HEIGHT)
+
+    return obj
+
+
+play_music()
 
 running = True
 while running:
     timer.tick(fps)
     win.fill(black)
 
-    player = draw_player(player_x, player_y)
+    if generate_places:
+        for i in range(len(obstacles)):
+            y_positions.append(random.randint(0, 300))
+
+        total = 100
+        for i in range(total):
+            x_pos = random.randint(0, WIDTH)
+            y_pos = random.randint(0, HEIGHT)
+            stars.append([x_pos, y_pos])
+
+        generate_places = False
+
+    stars = draw_stars(stars)
+    player = draw_player(player_x, player_y, y_change)
+    draw_obstacles(obstacles, y_positions, player)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYDOWN:
+            if (
+                event.key == pygame.K_UP or pygame.K_SPACE or pygame.K_w
+            ) and not game_over:
+                if player_y < 0:
+                    player_y = 5
+                else:
+                    y_change = -jump_height
+            if (event.key == pygame.K_SPACE) and game_over:
+                player_y = 225
+                player_x = 225
+                y_change = 0
+                generate_places = True
+                obstacles = [400, 700, 1000, 1300, 1600]
+                generate_places = True
+                y_positions = []
+                score = 0
+                game_over = False
+
+    if player_y + y_change < HEIGHT - 30:
+        player_y += y_change
+        y_change += gravity
+    else:
+        player_y = HEIGHT - 30
+
+    for i in range(len(obstacles)):
+        if not game_over:
+            obstacles[i] -= speed
+            if obstacles[i] < -30:
+                obstacles.remove(obstacles[i])
+                y_positions.remove(y_positions[i])
+                obstacles.append(
+                    random.randint(obstacles[-1] + 200, obstacles[-1] + 320)
+                )
+                y_positions.append(random.randint(0, 300))
+                score += 1
+
+    if score > high_score:
+        high_score = score
+
+    if game_over:
+        game_over_text = font.render("Press Space to Restart!!", True, white)
+        win.blit(game_over_text, (325, 225))
+
+    score_text = font.render(f"Score:{score}", True, white)
+    win.blit(score_text, (10, 450))
+    highscore_text = font.render(f"High Score:{high_score}", True, white)
+    win.blit(highscore_text, (10, 470))
 
     pygame.display.flip()
 
