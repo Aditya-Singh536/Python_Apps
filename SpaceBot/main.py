@@ -19,13 +19,15 @@ black = (0, 0, 0)
 white = (255, 255, 255)
 gray = (128, 128, 128)
 gold = (255, 215, 0)
-red = (255, 0, 0)
+green = (0, 255, 0)
 yellow = (255, 255, 0)
+cyan = (0, 255, 255)  # New color for the robotic bird
+silver = (192, 192, 192)  # New color for the robotic bird
 font = pygame.font.SysFont("Comic Sans MS", 20)
 
 win = pygame.display.set_mode([WIDTH, HEIGHT])
 timer = pygame.time.Clock()
-pygame.display.set_caption("FlappyBird")
+pygame.display.set_caption("SpaceBot")
 
 # variable library
 player_x = 225
@@ -44,22 +46,34 @@ stars = []
 
 
 def draw_player(x_pos, y_pos, y_change):
-    mouth = pygame.draw.circle(win, gray, [x_pos + 25, y_pos + 15], 12)
-    player = pygame.draw.rect(win, white, [x_pos, y_pos, 30, 30], 0, 10)
-    eye = pygame.draw.circle(win, black, [x_pos + 24, y_pos + 12], 5)
-    jetpack = pygame.draw.rect(win, gold, [x_pos - 20, y_pos, 18, 28], 3, 2)
+    # Main body of the robotic bird
+    player_body = pygame.draw.rect(win, silver, [x_pos, y_pos, 30, 30], 0, 10)
 
+    # Futuristic beak (sharp triangle)
+    pygame.draw.polygon(
+        win,
+        cyan,
+        [[x_pos + 30, y_pos + 10], [x_pos + 40, y_pos + 15], [x_pos + 30, y_pos + 20]],
+    )
+
+    # Glowing eyes (cyan)
+    pygame.draw.circle(win, cyan, [x_pos + 10, y_pos + 12], 3)
+    pygame.draw.circle(win, cyan, [x_pos + 20, y_pos + 12], 3)
+
+    # Angular fins/wings
+    pygame.draw.polygon(
+        win, silver, [[x_pos, y_pos + 5], [x_pos - 10, y_pos + 15], [x_pos, y_pos + 25]]
+    )
+
+    # Thruster at the back
+    thruster = pygame.draw.rect(win, gray, [x_pos - 5, y_pos + 25, 30, 15], 0, 2)
+
+    # Flames from the thruster when jumping
     if y_change < 0:
-        flame_red1 = pygame.draw.rect(win, red, [x_pos - 20, y_pos + 29, 7, 15], 0, 2)
-        flame_yellow1 = pygame.draw.rect(
-            win, yellow, [x_pos - 18, y_pos + 30, 3, 12], 0, 2
-        )
-        flame_red2 = pygame.draw.rect(win, red, [x_pos - 10, y_pos + 29, 7, 15], 0, 2)
-        flame_yellow2 = pygame.draw.rect(
-            win, yellow, [x_pos - 8, y_pos + 30, 3, 12], 0, 2
-        )
+        flame_red1 = pygame.draw.rect(win, cyan, [x_pos - 2, y_pos + 35, 12, 15], 0, 2)
+        flame_yellow1 = pygame.draw.rect(win, green, [x_pos, y_pos + 36, 8, 12], 0, 2)
 
-    return player
+    return player_body
 
 
 def draw_obstacles(obst, y_pos, char):
@@ -121,11 +135,9 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
-            if (
-                event.key == pygame.K_UP or pygame.K_SPACE or pygame.K_w
-            ) and not game_over:
+            if event.key in (pygame.K_UP, pygame.K_SPACE, pygame.K_w) and not game_over:
                 if player_y < 0:
-                    player_y = 5
+                    player_y = 0
                 else:
                     y_change = -jump_height
             if (event.key == pygame.K_SPACE) and game_over:
@@ -142,6 +154,9 @@ while running:
     if player_y + y_change < HEIGHT - 30:
         player_y += y_change
         y_change += gravity
+        if player_y < 0:
+            player_y = 0
+            y_change = 0
     else:
         player_y = HEIGHT - 30
 
