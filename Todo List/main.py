@@ -37,9 +37,12 @@ else:
 ask = input("\nDo you wanna see your todos? (y/n):").lower()
 
 if ask == "y":
-    with open("items.todo_list.txt", "r") as file_r:
-        print(f"\nThe Todos are:\n")
-        contents(file_r)
+    try:
+        with open("items.todo_list.txt", "r") as file_r:
+            print(f"\nThe Todos are:\n")
+            contents(file_r)
+    except Exception:
+        print("Add todo's to see them.")
 else:
     print("\nOkay!")
 
@@ -47,11 +50,11 @@ ask = input("\nDo you wanna delete any of the todos? (y/n):")
 print()
 
 if ask == "y":
-    with open("items.todo_list.txt", "r") as file_d:
-        contents(file_d)
-
-    deletion()
-
-    print()
-
-    contents()
+    try:
+        with open("items.todo_list.txt", "r") as file_d:
+            contents(file_d)
+        deletion()
+        print()
+        contents("items.todo_list.txt")
+    except Exception:
+        print("Add todo's to delete them.")
