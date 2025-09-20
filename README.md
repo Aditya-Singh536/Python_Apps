@@ -10,32 +10,32 @@ This repository showcases a variety of Python projects, ranging from simple scri
 
 Here's a detailed overview of the projects included in this repository:
 
-*   **School\_details\_Collector.py:** A GUI application for collecting school details using `customtkinter`.
-    *   **Description:** This project allows users to input school-related information through a graphical interface.
-    *   **Dependencies:** `customtkinter`
-    *   **How to Run:** `python School_details_Collector.py`
-    *   **Areas for Improvement:**
-        *   Improve GUI design and layout using `grid` or `place`.
-        *   Add comments to explain the purpose of each widget and function.
-        *   Implement input validation to ensure data integrity.
-*   **anime\_maker.py:** A project that uses the `turtle` module to draw various anime characters.
-    *   **Description:** This project demonstrates the use of the `turtle` module to create graphical drawings of anime characters like Doraemon, Shinchan, Pikachu, and Peppa Pig.
-    *   **Dependencies:** `turtle`
-    *   **How to Run:** `python anime_maker.py`
-    *   **Areas for Improvement:**
-        *   Break down the code into smaller, more modular functions.
-        *   Improve the turtle graphics code for better performance and visual quality.
-        *   Address the `turtle.Terminator` error by properly managing turtle windows.
-*   **contacts.txt:** A simple text file used to store contact information.
-    *   **Description:** This file stores contact information in a simple text format, with each line containing a name and phone number separated by a colon.
-    *   **How to Use:** This file is used by other scripts to store and retrieve contact information.
-    *   **Areas for Improvement:**
-        *   Use a more structured format like JSON or CSV to store contact information.
-*   **practise.txt:** A file used for practicing file I/O operations.
-    *   **Description:** This file is used for experimenting with file input and output operations in Python.
-    *   **How to Use:** This file is used by other scripts to practice reading from and writing to files.
-    *   **Areas for Improvement:**
-        *   Consider using a more descriptive name for this file.
+- **School_details_Collector.py:** A GUI application for collecting school details using `customtkinter`.
+  - **Description:** This project allows users to input school-related information through a graphical interface.
+  - **Dependencies:** `customtkinter`
+  - **How to Run:** `python School_details_Collector.py`
+  - **Areas for Improvement:**
+    - Improve GUI design and layout using `grid` or `place`.
+    - Add comments to explain the purpose of each widget and function.
+    - Implement input validation to ensure data integrity.
+- **anime_maker.py:** A project that uses the `turtle` module to draw various anime characters.
+  - **Description:** This project demonstrates the use of the `turtle` module to create graphical drawings of anime characters like Doraemon, Shinchan, Pikachu, and Peppa Pig.
+  - **Dependencies:** `turtle`
+  - **How to Run:** `python anime_maker.py`
+  - **Areas for Improvement:**
+    - Break down the code into smaller, more modular functions.
+    - Improve the turtle graphics code for better performance and visual quality.
+    - Address the `turtle.Terminator` error by properly managing turtle windows.
+- **contacts.txt:** A simple text file used to store contact information.
+  - **Description:** This file stores contact information in a simple text format, with each line containing a name and phone number separated by a colon.
+  - **How to Use:** This file is used by other scripts to store and retrieve contact information.
+  - **Areas for Improvement:**
+    - Use a more structured format like JSON or CSV to store contact information.
+- **practise.txt:** A file used for practicing file I/O operations.
+  - **Description:** This file is used for experimenting with file input and output operations in Python.
+  - **How to Use:** This file is used by other scripts to practice reading from and writing to files.
+  - **Areas for Improvement:**
+    - Consider using a more descriptive name for this file.
 
 ## How to Run the Projects
 
@@ -75,10 +75,11 @@ To run the projects in this repository, you'll need to have Python installed on 
 
 The following dependencies are required to run the projects in this repository:
 
-*   `customtkinter`: Used for creating GUI applications.
-*   `turtle`: Used for creating graphical drawings.
+- `customtkinter`: Used for creating GUI applications.
+- `turtle`: Used for creating graphical drawings.
 
 You can install these dependencies using pip:
 
 ```bash
 pip install customtkinter turtle
+```
