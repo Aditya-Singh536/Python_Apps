@@ -12,7 +12,7 @@ app.title("Anime Maker!!")
 
 lbl = ctk.CTkLabel(
     app,
-    text="Go in Full screen to\nWatch the whole Drawing!\nCan draw only one drawing at once!\nClose the canvas and go!",
+    text="Go in Full screen to\nWatch the whole Drawing!\nCan draw only two drawing at once!\nClose the canvas and go!",
     font=("Algera", 18),
 )
 lbl.pack(pady=20)
