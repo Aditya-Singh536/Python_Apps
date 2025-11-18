@@ -8,13 +8,13 @@ pygame.font.init()
 
 
 def play_music():
-    music = "bg_music.mp3"
+    music = "Space_Dodge/bg_music.mp3"
     pygame.mixer.music.load(music)
     pygame.mixer.music.play(-1)
 
 
 def play_music_lost():
-    music = "lose.mp3"
+    music = "Space_Dodge/lose.mp3"
     pygame.mixer.music.load(music)
     pygame.mixer.music.play(-1)
 
@@ -24,7 +24,7 @@ width, height = 1280, 725  # ! Set this according to your display size.
 win = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Space Dodge")
 
-bg = pygame.transform.scale(pygame.image.load("bg.jpeg"), (width, height))
+bg = pygame.transform.scale(pygame.image.load("Space_Dodge/bg.jpeg"), (width, height))
 
 player_width = 40
 player_height = 60

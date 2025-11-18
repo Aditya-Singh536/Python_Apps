@@ -7,7 +7,7 @@ pygame.mixer.init()
 
 
 def play_music():
-    music = "bg_music.mp3"
+    music = "SpaceBot/bg_music.mp3"
     pygame.mixer.music.load(music)
     pygame.mixer.music.play(-1)
 
