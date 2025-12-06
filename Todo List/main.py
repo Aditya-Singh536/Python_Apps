@@ -32,14 +32,14 @@ if ask == "y":
         ask = input("\nEnter a new task:")
         file_a.write(f"{ask}\n")
 else:
-    print(f"\nOkay!")
+    print("\nOkay!")
 
 ask = input("\nDo you wanna see your todos? (y/n):").lower()
 
 if ask == "y":
     try:
         with open("items.todo_list.txt", "r") as file_r:
-            print(f"\nThe Todos are:\n")
+            print("\nThe Todos are:\n")
             contents(file_r)
     except Exception:
         print("Add todo's to see them.")

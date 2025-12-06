@@ -19,7 +19,7 @@ def play_music_lost():
     pygame.mixer.music.play(-1)
 
 
-width, height = 1280, 725  # ! Set this according to your display size.
+width, height = 1200, 720  # ! Set this according to your display size.
 
 win = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Space Dodge")

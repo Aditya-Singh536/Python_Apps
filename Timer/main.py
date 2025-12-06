@@ -4,7 +4,7 @@ import pygame
 pygame.init()
 pygame.mixer.init()
 
-ask = input("Enter how long should the timer run:")
+ask = input("Enter how long should the timer run: ")
 if ask.isdigit():
     ask = int(ask)
 else:
